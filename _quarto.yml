@@ -1,0 +1,30 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Lucas M. Novaes"
+  navbar:
+    background: dark
+    left:
+      - href: index.qmd
+        text: Home
+      - href: research.qmd
+        text: Research
+      - href: cv.qmd
+        text: CV
+      - href: teaching.qmd
+        text: Teaching
+    right:
+      - icon: envelope
+        href: mailto:lucasmn2@insper.edu.br
+        aria-label: Email
+      - icon: google
+        href: https://scholar.google.com/citations?hl=en&user=zVT_HkgAAAAJ
+        aria-label: Google Scholar
+
+format:
+  html:
+    theme: cosmo
+    css: custom.css
+    toc: false

@@ -1,0 +1,30 @@
+---
+title: "Lucas M. Novaes"
+about:
+  template: trestles
+  image: files/photo.jpg
+  image-shape: round
+  links:
+    - icon: envelope
+      text: Email
+      href: mailto:lucasmn2@insper.edu.br
+    - icon: google
+      text: Google Scholar
+      href: https://scholar.google.com/citations?hl=en&user=zVT_HkgAAAAJ
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/lmnovaes
+    - icon: building
+      text: Insper
+      href: https://www.insper.edu.br
+---
+
+Welcome! I am associate professor at [Insper Institute for Education and Research](https://www.insper.edu.br), São Paulo, Brazil, where I investigate political representation in the developing world.
+
+I am also an associate at the [Governance and Local Development Institute](https://gld.gu.se/), University of Gothenburg, and a former research fellow at the [Institute for Advanced Study in Toulouse](https://www.iast.fr/) (2016--2018).
+
+My work has been published in the *American Political Science Review*, *American Journal of Political Science*, *British Journal of Political Science*, *Comparative Political Studies*, and the *Journal of Politics*, among others.
+
+I received my Ph.D. in Political Science from the University of California, Berkeley in 2015.
+
+**Research interests:** comparative politics, political representation, political parties, clientelism, Brazilian politics.
