@@ -1,0 +1,36 @@
+/* Custom styles for Lucas M. Novaes academic website */
+
+/* Slightly increase base font size for readability */
+body {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Publication titles in bold stand out more */
+h2 {
+  margin-top: 2rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* Add spacing between publication entries */
+.content p strong:first-child {
+  display: inline-block;
+  margin-top: 0.8rem;
+}
+
+/* About page photo */
+.about-entity img {
+  max-width: 220px;
+}
+
+/* Navbar tweaks */
+.navbar {
+  font-size: 0.95rem;
+}
+
+/* Footer */
+.nav-footer {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
