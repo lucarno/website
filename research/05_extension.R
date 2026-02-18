@@ -65,7 +65,7 @@ desc_by_period <- panel |>
     pct_ran_next = mean(ran_next, na.rm = TRUE),
     n_obs = n(),
     n_legislators = n_distinct(candidate_name),
-    n_municipalities = n_distinct(mun_code_tse),
+    n_municipalities = n_distinct(id_municipio),
     .groups = "drop"
   )
 
@@ -86,14 +86,14 @@ if (has_budget) {
   ext_s1 <- feols(
     amendments_pc ~ associated | candidate_name + election_year,
     data = panel_ext,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Full period (pooled)
   full_s1 <- feols(
     amendments_pc ~ associated | candidate_name + election_year,
     data = panel_all,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Interaction with period indicator
@@ -103,7 +103,7 @@ if (has_budget) {
   interact_s1 <- feols(
     amendments_pc ~ associated * post_2010 | candidate_name + election_year,
     data = panel_all,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   message("\n--- Supply Side: Comparing Periods ---\n")
@@ -112,7 +112,7 @@ if (has_budget) {
     list(
       "Original (1998-2010)" = feols(
         amendments_pc ~ associated | candidate_name + election_year,
-        data = panel_orig, vcov = ~mun_code_tse
+        data = panel_orig, vcov = ~id_municipio
       ),
       "Extension (2014-2022)" = ext_s1,
       "Full Period" = full_s1,
@@ -128,7 +128,7 @@ if (has_budget) {
     list(
       "Original" = feols(
         amendments_pc ~ associated | candidate_name + election_year,
-        data = panel_orig, vcov = ~mun_code_tse
+        data = panel_orig, vcov = ~id_municipio
       ),
       "Extension" = ext_s1,
       "Full" = full_s1,
@@ -161,7 +161,7 @@ if (has_budget) {
     vote_share_next ~ amendments_pc + vote_share |
       candidate_name + election_year,
     data = panel_demand_ext,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Full period
@@ -169,7 +169,7 @@ if (has_budget) {
     vote_share_next ~ amendments_pc + vote_share |
       candidate_name + election_year,
     data = panel_demand_all,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Interaction
@@ -180,7 +180,7 @@ if (has_budget) {
     vote_share_next ~ amendments_pc * post_2010 + vote_share |
       candidate_name + election_year,
     data = panel_demand_all,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   message("\n--- Demand Side: Comparing Periods ---\n")
@@ -190,7 +190,7 @@ if (has_budget) {
       "Original" = feols(
         vote_share_next ~ amendments_pc + vote_share |
           candidate_name + election_year,
-        data = panel_demand_orig, vcov = ~mun_code_tse
+        data = panel_demand_orig, vcov = ~id_municipio
       ),
       "Extension" = ext_d1,
       "Full" = full_d1,
@@ -206,7 +206,7 @@ if (has_budget) {
       "Original" = feols(
         vote_share_next ~ amendments_pc + vote_share |
           candidate_name + election_year,
-        data = panel_demand_orig, vcov = ~mun_code_tse
+        data = panel_demand_orig, vcov = ~id_municipio
       ),
       "Extension" = ext_d1,
       "Full" = full_d1,
@@ -226,21 +226,21 @@ if (has_budget) {
     vote_share_next ~ associated + vote_share |
       candidate_name + election_year,
     data = panel_demand_orig,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   rf_ext <- feols(
     vote_share_next ~ associated + vote_share |
       candidate_name + election_year,
     data = panel_demand_ext,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   rf_all <- feols(
     vote_share_next ~ associated + vote_share |
       candidate_name + election_year,
     data = panel_demand_all,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   panel_demand_all <- panel_demand_all |>
@@ -250,7 +250,7 @@ if (has_budget) {
     vote_share_next ~ associated * post_2010 + vote_share |
       candidate_name + election_year,
     data = panel_demand_all,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   message("\n--- Reduced Form: Comparing Periods ---\n")
@@ -301,14 +301,14 @@ for (yr in sort(unique(panel$election_year))) {
       m <- feols(
         vote_share_next ~ amendments_pc + vote_share,
         data = panel_yr,
-        vcov = ~mun_code_tse
+        vcov = ~id_municipio
       )
       coef_name <- "amendments_pc"
     } else {
       m <- feols(
         vote_share_next ~ associated + vote_share,
         data = panel_yr,
-        vcov = ~mun_code_tse
+        vcov = ~id_municipio
       )
       coef_name <- "associated"
     }

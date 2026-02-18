@@ -19,7 +19,7 @@ message("  Election years: ", paste(unique(panel_orig$election_year), collapse =
 message("  Unique legislators: ",
         n_distinct(panel_orig$candidate_name))
 message("  Unique municipalities: ",
-        n_distinct(panel_orig$mun_code_tse))
+        n_distinct(panel_orig$id_municipio))
 
 # =============================================================================
 # TABLE 1: Descriptive Statistics
@@ -78,35 +78,35 @@ if (has_budget) {
   supply_s1 <- feols(
     amendments_pc ~ associated,
     data = panel_orig,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Model S2: With legislator fixed effects
   supply_s2 <- feols(
     amendments_pc ~ associated | candidate_name,
     data = panel_orig,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Model S3: With legislator + year fixed effects
   supply_s3 <- feols(
     amendments_pc ~ associated | candidate_name + election_year,
     data = panel_orig,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Model S4: With vote share as continuous measure instead of binary
   supply_s4 <- feols(
     amendments_pc ~ vote_share | candidate_name + election_year,
     data = panel_orig,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Model S5: Both associated and vote share
   supply_s5 <- feols(
     amendments_pc ~ associated + vote_share | candidate_name + election_year,
     data = panel_orig,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Display results
@@ -175,21 +175,21 @@ if (has_budget) {
   demand_d1 <- feols(
     vote_share_next ~ amendments_pc,
     data = panel_demand,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Model D2: Controlling for current vote share
   demand_d2 <- feols(
     vote_share_next ~ amendments_pc + vote_share,
     data = panel_demand,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Model D3: With legislator fixed effects
   demand_d3 <- feols(
     vote_share_next ~ amendments_pc + vote_share | candidate_name,
     data = panel_demand,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Model D4: With legislator + year fixed effects
@@ -197,7 +197,7 @@ if (has_budget) {
     vote_share_next ~ amendments_pc + vote_share |
       candidate_name + election_year,
     data = panel_demand,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Model D5: Close elections subsample
@@ -216,7 +216,7 @@ if (has_budget) {
       vote_share_next ~ amendments_pc + vote_share |
         candidate_name + election_year,
       data = panel_close,
-      vcov = ~mun_code_tse
+      vcov = ~id_municipio
     )
   } else {
     message("  WARNING: Close elections subsample too small for estimation.")
@@ -264,14 +264,14 @@ if (has_budget) {
   rf_d1 <- feols(
     vote_share_next ~ associated,
     data = panel_demand,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Reduced form D2: With controls
   rf_d2 <- feols(
     vote_share_next ~ associated + vote_share,
     data = panel_demand,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   # Reduced form D3: With fixed effects
@@ -279,7 +279,7 @@ if (has_budget) {
     vote_share_next ~ associated + vote_share |
       candidate_name + election_year,
     data = panel_demand,
-    vcov = ~mun_code_tse
+    vcov = ~id_municipio
   )
 
   message("\n--- Reduced Form Results (without budget data) ---\n")
@@ -343,7 +343,7 @@ if (nrow(panel_rd) > 100) {
     rd_supply <- feols(
       amendments_pc ~ below_cutoff * running_var | election_year,
       data = panel_rd_local,
-      vcov = ~mun_code_tse
+      vcov = ~id_municipio
     )
     message("\n  RD Supply Side (effect of association on amendments):")
     print(summary(rd_supply))
@@ -354,7 +354,7 @@ if (nrow(panel_rd) > 100) {
     rd_demand <- feols(
       vote_share_next ~ below_cutoff * running_var | election_year,
       data = panel_rd_local |> filter(ran_next == TRUE),
-      vcov = ~mun_code_tse
+      vcov = ~id_municipio
     )
     message("\n  RD Demand Side (effect of association on future vote share):")
     print(summary(rd_demand))

@@ -13,90 +13,79 @@ Key methodological contribution: defining "associated candidates" using the Herf
 
 ## How to Run
 
-Run scripts in order:
+### Prerequisites
 
-```r
-source("research/01_download_data.R")    # Download raw data
-source("research/02_clean_data.R")       # Clean and standardize
-source("research/03_construct_variables.R") # Build HHI, associated candidates, panel
-source("research/04_analysis.R")         # Main regressions (original period)
-source("research/05_extension.R")        # Extend to 2014-2022
-```
+1. **Google Cloud project** (free) for BigQuery access via Base dos Dados.
+   - Create at: https://console.cloud.google.com/
+   - Free tier: 1 TB of queries per month (more than enough)
+   - Set your project ID: `Sys.setenv(BD_PROJECT_ID = "your-project-id")`
 
-## Data Sources
-
-### Electoral Data (TSE)
-- **Source**: Tribunal Superior Eleitoral, Dados Abertos
-- **Access**: Downloaded automatically via `electionsBR` R package
-- **Content**: Deputado Federal vote counts by municipality, candidate info, elected status
-- **Years**: 1998, 2002, 2006, 2010 (original); 2014, 2018, 2022 (extension)
-- **URL**: https://dadosabertos.tse.jus.br/
-
-### Budget Amendment Data (Emendas Orçamentárias)
-- **Source**: SIAFI / SIGA Brasil / Portal da Transparência
-- **Access**: Requires manual download (see instructions below)
-- **Content**: Individual budget amendments by legislator and beneficiary municipality
-- **Years**: 1999-2022
-
-**Manual download instructions:**
-
-1. Go to [SIGA Brasil](https://www12.senado.leg.br/orcamento/sigabrasil)
-2. Navigate to "Emendas Parlamentares"
-3. Filter: Tipo = Individual, Autor = Deputado Federal
-4. Select years needed (1999-2010 for original, 2015-2022 for extension)
-5. Download as CSV
-6. Place in `research/data/raw/` as `budget_amendments_manual.csv`
-
-Required columns (any naming convention): legislator name/ID, municipality IBGE code, amendment value, year.
-
-Alternative sources:
-- [Portal da Transparência](https://portaldatransparencia.gov.br/emendas)
-- [Tesouro Transparente](https://www.tesourotransparente.gov.br)
-- R package `orcamentoBR` (programmatic access to SIOP)
-
-### Population Data (IBGE)
-- **Source**: IBGE municipal population estimates
-- **Access**: Downloaded automatically via `sidrar` R package
-- **URL**: https://www.ibge.gov.br/
-
-## R Dependencies
-
+2. **R packages**:
 ```r
 install.packages(c(
-  "tidyverse", "data.table", "janitor", "here",
-  "electionsBR", "sidrar", "geobr",
+  "tidyverse", "data.table", "janitor", "here", "glue",
+  "basedosdados",
   "fixest", "modelsummary", "kableExtra"
 ))
-
-# Optional (for budget data):
-install.packages("orcamentoBR")
 ```
+
+### Run scripts in order
+
+```r
+source("research/01_download_data.R")       # Query Base dos Dados (BigQuery)
+source("research/02_clean_data.R")           # Clean and standardize
+source("research/03_construct_variables.R")  # Build HHI, associated candidates, panel
+source("research/04_analysis.R")             # Main regressions (original period)
+source("research/05_extension.R")            # Extend to 2014-2022
+```
+
+## Data Sources (all via Base dos Dados)
+
+All data is accessed through [Base dos Dados](https://basedosdados.org/) (BigQuery), which provides standardized `id_municipio` columns across all tables — no municipality code crosswalks needed.
+
+| Data | BigQuery Table | Content |
+|------|----------------|---------|
+| Electoral results | `br_tse_eleicoes.resultados_candidato_municipio` | Deputado Federal votes by municipality |
+| Candidate info | `br_tse_eleicoes.candidatos` | Elected status, party, etc. |
+| Budget amendments | `br_cgu_emendas_parlamentares.microdados` | Individual amendments by legislator × municipality |
+| Population | `br_ibge_populacao.municipio` | Municipal population estimates |
+| Municipality directory | `br_bd_diretorios_brasil.municipio` | Names, states, codes |
+
+**Original data sources**: TSE (Tribunal Superior Eleitoral), CGU/Portal da Transparência, IBGE.
+
+### Fallbacks (if BigQuery is unavailable)
+
+- Electoral data: `electionsBR` R package (downloads directly from TSE)
+- Budget amendments: Manual download from [Portal da Transparência](https://portaldatransparencia.gov.br/emendas) or [SIGA Brasil](https://www12.senado.leg.br/orcamento/sigabrasil)
+- Population: `sidrar` R package (IBGE API)
 
 ## Project Structure
 
 ```
 research/
-├── _common.R                  # Shared configuration and helpers
-├── 01_download_data.R         # Data acquisition
+├── _common.R                  # Shared configuration, BigQuery setup, helpers
+├── 01_download_data.R         # Data acquisition from Base dos Dados
 ├── 02_clean_data.R            # Data cleaning and standardization
 ├── 03_construct_variables.R   # Variable construction and panel assembly
 ├── 04_analysis.R              # Main regressions (original period)
 ├── 05_extension.R             # Extension to 2014-2022
-├── README.md                  # This file
+├── README.md
 ├── .gitignore                 # Excludes data/ and output/
 ├── data/
-│   ├── raw/                   # Raw downloaded files
+│   ├── raw/                   # Cached BigQuery results (.rds)
 │   └── clean/                 # Processed datasets
 └── output/                    # Regression tables and figures
 ```
 
 ## Known Limitations
 
-1. **Budget data attribution**: Pre-2014, ~30% of amendments shared functional-programmatic classifications across legislators, making attribution imperfect (documented in SIGA Brasil methodology).
+1. **Budget data attribution**: Pre-2014, ~30% of amendments shared functional-programmatic classifications across legislators, making attribution imperfect.
 
-2. **Legislator matching**: Linking legislators across TSE electoral data and budget amendment data relies on name matching since there is no common ID. The `02_clean_data.R` script normalizes names for matching.
+2. **Historical coverage**: Portal da Transparência data (used by Base dos Dados) may not cover the full 1999-2010 period. If the emendas table starts later, earliest terms may need supplementary data from SIGA Brasil.
 
-3. **Municipality code harmonization**: TSE and IBGE use different municipality coding systems. The scripts handle this via a crosswalk from the `geobr` package.
+3. **Legislator matching**: Linking legislators across TSE and emendas data relies on name matching (no common ID). The scripts normalize names for matching.
+
+4. **Table schema**: Exact BigQuery column names may change. The download script includes a schema discovery step (`LIMIT 5` query) and clear error messages for debugging.
 
 ## References
 

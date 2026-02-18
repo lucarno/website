@@ -1,251 +1,189 @@
 # =============================================================================
 # 01_download_data.R
-# Download raw data: TSE electoral results, budget amendments, population
+# Download raw data from Base dos Dados (BigQuery):
+#   - TSE electoral results (Deputado Federal, by municipality)
+#   - Budget amendments (emendas parlamentares individuais)
+#   - IBGE municipal population
+#
+# All datasets use standardized id_municipio — no crosswalk needed.
+# Requires: Google Cloud project (free). See _common.R for setup.
 # =============================================================================
 
 source(here::here("research", "_common.R"))
 
 # =============================================================================
-# PART 1: Electoral Data (TSE)
+# STEP 0: Discover table schemas (run interactively to verify column names)
 # =============================================================================
-# We need Deputado Federal vote counts at the municipality level
-# for each election year. The electionsBR package downloads directly
-# from TSE's open data repository.
+# Uncomment to inspect table schemas before running queries:
+#
+# bdplyr(BQ_TSE_RESULTADOS) |> glimpse()
+# bdplyr(BQ_TSE_CANDIDATOS) |> glimpse()
+# bdplyr(BQ_EMENDAS) |> glimpse()
+# bdplyr(BQ_POPULACAO) |> glimpse()
 
-message("\n=== Downloading TSE electoral data ===\n")
+# =============================================================================
+# PART 1: Electoral Data (TSE) — Votes by candidate × municipality
+# =============================================================================
+# Table: br_tse_eleicoes.resultados_candidato_municipio
+# Contains candidate-level vote counts at the municipality level.
+# We filter to cargo = 'deputado federal' and our election years.
 
-for (yr in election_years_all) {
-  outfile <- file.path(data_raw, paste0("tse_votes_depfed_", yr, ".rds"))
+message("\n=== Downloading TSE electoral results (Deputado Federal) ===\n")
 
-  if (file.exists(outfile)) {
-    message("  ", yr, ": already downloaded, skipping.")
-    next
-  }
+years_str <- paste(election_years_all, collapse = ", ")
 
-  message("  Downloading ", yr, " Deputado Federal vote data...")
+votes_query <- glue::glue("
+  SELECT
+    ano,
+    sigla_uf,
+    id_municipio,
+    id_candidato_bd,
+    numero_candidato,
+    nome_candidato,
+    sigla_partido,
+    votos,
+    resultado
+  FROM `basedosdados.{BQ_TSE_RESULTADOS}`
+  WHERE cargo = 'deputado federal'
+    AND ano IN ({years_str})
+")
 
-  tryCatch({
-    # vote_mun_zone gives candidate-level vote counts by municipality and zone
-    df <- electionsBR::elections_tse(
-      year = yr,
-      type = "vote_mun_zone"
-    )
+votes_raw <- bd_query_cached(votes_query, "tse_votes_depfed")
 
-    # Filter to Deputado Federal only
-    # The position code column varies by year; common names:
-    # CODIGO_CARGO or CD_CARGO
-    cargo_col <- intersect(
-      c("CODIGO_CARGO", "CD_CARGO", "codigo_cargo", "cd_cargo"),
-      names(df)
-    )
+message("  Total vote observations: ", nrow(votes_raw))
+message("  Years: ", paste(sort(unique(votes_raw$ano)), collapse = ", "))
 
-    if (length(cargo_col) > 0) {
-      df <- df |> filter(.data[[cargo_col[1]]] == POSITION_DEPUTADO_FEDERAL)
-    } else {
-      # Try filtering by description
-      desc_col <- intersect(
-        c("DESCRICAO_CARGO", "DS_CARGO", "descricao_cargo", "ds_cargo"),
-        names(df)
-      )
-      if (length(desc_col) > 0) {
-        df <- df |>
-          filter(str_detect(
-            toupper(.data[[desc_col[1]]]),
-            "DEPUTADO FEDERAL"
-          ))
-      }
-    }
+# =============================================================================
+# PART 2: Candidate data (for elected status if not in results table)
+# =============================================================================
+# Table: br_tse_eleicoes.candidatos
+# Contains candidate metadata including elected status.
 
-    saveRDS(df, outfile)
-    message("    -> Saved: ", nrow(df), " rows")
-  }, error = function(e) {
-    message("    -> ERROR: ", conditionMessage(e))
-  })
-}
-
-# Also download candidate-level data (for elected status, party, etc.)
 message("\n=== Downloading TSE candidate data ===\n")
 
-for (yr in election_years_all) {
-  outfile <- file.path(data_raw, paste0("tse_candidates_depfed_", yr, ".rds"))
+candidates_query <- glue::glue("
+  SELECT
+    ano,
+    id_candidato_bd,
+    sequencial_candidato,
+    numero_candidato,
+    nome,
+    nome_urna,
+    sigla_partido,
+    situacao,
+    sigla_uf
+  FROM `basedosdados.{BQ_TSE_CANDIDATOS}`
+  WHERE cargo = 'deputado federal'
+    AND ano IN ({years_str})
+")
 
-  if (file.exists(outfile)) {
-    message("  ", yr, ": already downloaded, skipping.")
-    next
-  }
+candidates_raw <- bd_query_cached(candidates_query, "tse_candidates_depfed")
 
-  message("  Downloading ", yr, " candidate data...")
-
-  tryCatch({
-    df <- electionsBR::elections_tse(
-      year = yr,
-      type = "candidate"
-    )
-
-    # Filter to Deputado Federal
-    cargo_col <- intersect(
-      c("CODIGO_CARGO", "CD_CARGO", "codigo_cargo", "cd_cargo"),
-      names(df)
-    )
-    if (length(cargo_col) > 0) {
-      df <- df |> filter(.data[[cargo_col[1]]] == POSITION_DEPUTADO_FEDERAL)
-    } else {
-      desc_col <- intersect(
-        c("DESCRICAO_CARGO", "DS_CARGO", "descricao_cargo", "ds_cargo"),
-        names(df)
-      )
-      if (length(desc_col) > 0) {
-        df <- df |>
-          filter(str_detect(
-            toupper(.data[[desc_col[1]]]),
-            "DEPUTADO FEDERAL"
-          ))
-      }
-    }
-
-    saveRDS(df, outfile)
-    message("    -> Saved: ", nrow(df), " rows")
-  }, error = function(e) {
-    message("    -> ERROR: ", conditionMessage(e))
-  })
-}
+message("  Total candidates: ", nrow(candidates_raw))
 
 # =============================================================================
-# PART 2: Budget Amendment Data (Emendas Orçamentárias Individuais)
+# PART 3: Budget Amendment Data (Emendas Parlamentares)
 # =============================================================================
-# This is the most challenging data to obtain programmatically.
-# We try multiple strategies in order of preference.
+# Table: br_cgu_emendas_parlamentares.microdados
+# Contains individual parliamentary amendments with author, municipality,
+# and financial values.
+#
+# NOTE: Column names below are best guesses based on Portal da Transparência
+# structure and Base dos Dados naming conventions. If the query fails,
+# run bdplyr(BQ_EMENDAS) |> glimpse() to discover actual column names.
 
-message("\n=== Downloading budget amendment data ===\n")
+message("\n=== Downloading budget amendment data (emendas parlamentares) ===\n")
 
-# --- Strategy A: orcamentoBR package (SIOP SPARQL endpoint) ------------------
-# The orcamentoBR package provides access to federal budget data.
-# It may not have the legislator-municipality level detail we need,
-# but it's worth trying first.
+# First, try to discover the actual columns
+message("  Checking emendas table schema...")
 
-budget_file <- file.path(data_raw, "budget_amendments_raw.rds")
+tryCatch({
+  # Query a small sample to discover columns
+  schema_query <- glue::glue("
+    SELECT *
+    FROM `basedosdados.{BQ_EMENDAS}`
+    LIMIT 5
+  ")
+  schema_sample <- basedosdados::read_sql(schema_query)
+  message("  Available columns: ", paste(names(schema_sample), collapse = ", "))
 
-if (file.exists(budget_file)) {
-  message("  Budget data already downloaded.")
-} else {
-  message("  Attempting download via orcamentoBR...")
+  # Save column names for reference
+  saveRDS(names(schema_sample), file.path(data_raw, "emendas_column_names.rds"))
 
-  tryCatch({
-    # Try to get emendas individuais data
-    # The orcamentoBR package provides budget data via SPARQL
-    # Check available functions
-    if ("get_emendas" %in% ls("package:orcamentoBR")) {
-      budget_raw <- orcamentoBR::get_emendas()
-      saveRDS(budget_raw, budget_file)
-      message("    -> Saved budget amendment data")
-    } else {
-      message("    -> orcamentoBR does not have get_emendas()")
-      message("    -> See README.md for manual download instructions")
-    }
-  }, error = function(e) {
-    message("    -> orcamentoBR failed: ", conditionMessage(e))
-    message("    -> See README.md for manual download instructions")
-  })
-}
+  # Now download the full dataset for our period
+  # Adjust column names based on what we discovered
+  emendas_query <- glue::glue("
+    SELECT *
+    FROM `basedosdados.{BQ_EMENDAS}`
+    WHERE ano >= 1999 AND ano <= 2026
+  ")
 
-# --- Strategy B: Manual download instructions --------------------------------
-# If programmatic access fails, the user needs to download data manually.
-# The README provides detailed instructions for this.
+  emendas_raw <- bd_query_cached(emendas_query, "emendas_parlamentares")
 
-if (!file.exists(budget_file)) {
-  message("\n")
-  message("  ============================================================")
-  message("  MANUAL DOWNLOAD REQUIRED FOR BUDGET AMENDMENT DATA")
-  message("  ============================================================")
-  message("  ")
-  message("  The budget amendment data could not be downloaded automatically.")
-  message("  Please follow these steps:")
-  message("  ")
-  message("  Option 1: SIGA Brasil (most comprehensive)")
-  message("    1. Go to https://www12.senado.leg.br/orcamento/sigabrasil")
-  message("    2. Navigate to 'Emendas Parlamentares'")
-  message("    3. Filter by: Tipo = Individual, Autor = Deputado Federal")
-  message("    4. Select years: 1999-2010 (original period)")
-  message("    5. Download as CSV")
-  message("    6. Place files in: ", data_raw)
-  message("  ")
-  message("  Option 2: Portal da Transparencia")
-  message("    1. Go to https://portaldatransparencia.gov.br/emendas")
-  message("    2. Filter and download emendas individuais by year")
-  message("    3. Place files in: ", data_raw)
-  message("  ")
-  message("  Option 3: Tesouro Transparente")
-  message("    1. Go to https://www.tesourotransparente.gov.br")
-  message("    2. Navigate to 'Emendas Parlamentares'")
-  message("    3. Download the data panel")
-  message("    4. Place files in: ", data_raw)
-  message("  ")
-  message("  After downloading, the file should contain at minimum:")
-  message("    - Author/legislator identifier")
-  message("    - Municipality code (IBGE or name)")
-  message("    - Amendment value (R$)")
-  message("    - Year of execution")
-  message("  ")
-  message("  Name the file: budget_amendments_manual.csv")
-  message("  ============================================================")
-}
+  message("  Total emendas observations: ", nrow(emendas_raw))
+  message("  Year range: ",
+          min(emendas_raw$ano, na.rm = TRUE), " - ",
+          max(emendas_raw$ano, na.rm = TRUE))
+
+}, error = function(e) {
+  message("  ERROR querying emendas: ", conditionMessage(e))
+  message("")
+  message("  The table name or schema may differ. To debug:")
+  message("    1. Run: bdplyr('", BQ_EMENDAS, "') |> glimpse()")
+  message("    2. Or search tables: basedosdados::read_sql(\"")
+  message("         SELECT table_name FROM ")
+  message("         `basedosdados.br_cgu_emendas_parlamentares.INFORMATION_SCHEMA.TABLES`\")")
+  message("    3. Adjust BQ_EMENDAS in _common.R and re-run this script.")
+  message("")
+  message("  Fallback: download manually from Portal da Transparência:")
+  message("    https://portaldatransparencia.gov.br/emendas")
+  message("  Place CSV in: ", data_raw, "/budget_amendments_manual.csv")
+})
 
 # =============================================================================
-# PART 3: Population Data (IBGE)
+# PART 4: Population Data (IBGE)
 # =============================================================================
-# Municipal population estimates for computing per capita measures.
+# Table: br_ibge_populacao.municipio
+# Municipal population estimates by year.
 
 message("\n=== Downloading IBGE population data ===\n")
 
-pop_file <- file.path(data_raw, "ibge_population.rds")
+tryCatch({
+  pop_query <- glue::glue("
+    SELECT
+      ano,
+      id_municipio,
+      populacao
+    FROM `basedosdados.{BQ_POPULACAO}`
+    WHERE ano >= 1998 AND ano <= 2026
+  ")
 
-if (file.exists(pop_file)) {
-  message("  Population data already downloaded.")
-} else {
-  message("  Downloading municipal population estimates via sidrar...")
+  pop_raw <- bd_query_cached(pop_query, "ibge_population")
 
-  tryCatch({
-    # IBGE Table 6579: Municipal population estimates
-    # This table has annual population estimates by municipality
-    pop_data <- sidrar::get_sidra(
-      x = 6579,            # Population estimates table
-      period = "1998-2022", # Full period
-      geo = "City"          # Municipality level
-    )
+  message("  Population observations: ", nrow(pop_raw))
+  message("  Year range: ",
+          min(pop_raw$ano, na.rm = TRUE), " - ",
+          max(pop_raw$ano, na.rm = TRUE))
 
-    saveRDS(pop_data, pop_file)
-    message("    -> Saved: ", nrow(pop_data), " rows")
-  }, error = function(e) {
-    message("    -> sidrar failed: ", conditionMessage(e))
-    message("    -> Trying alternative approach...")
+}, error = function(e) {
+  message("  ERROR querying population: ", conditionMessage(e))
+  message("  Table name may differ. Run bdplyr('", BQ_POPULACAO, "') |> glimpse()")
+  message("  Fallback: use sidrar package:")
+  message("    install.packages('sidrar')")
+  message("    pop <- sidrar::get_sidra(x = 6579, period = '1998-2022', geo = 'City')")
+})
 
-    # Alternative: Census population counts for key years
-    tryCatch({
-      # Try IBGE population estimates table 793
-      pop_data <- sidrar::get_sidra(
-        x = 793,
-        period = "all",
-        geo = "City"
-      )
-      saveRDS(pop_data, pop_file)
-      message("    -> Saved alternative population data: ", nrow(pop_data), " rows")
-    }, error = function(e2) {
-      message("    -> Alternative also failed: ", conditionMessage(e2))
-      message("    -> You may need to download population data manually from IBGE")
-      message("    -> https://www.ibge.gov.br/estatisticas/sociais/populacao.html")
-    })
-  })
+# =============================================================================
+# Summary
+# =============================================================================
+
+message("\n=== Data download summary ===\n")
+
+cached_files <- list.files(data_raw, pattern = "\\.rds$")
+for (f in cached_files) {
+  size_mb <- round(file.size(file.path(data_raw, f)) / 1e6, 1)
+  message(sprintf("  %-40s %6.1f MB", f, size_mb))
 }
 
-# =============================================================================
-# PART 4: Municipality crosswalk (TSE <-> IBGE codes)
-# =============================================================================
-
-message("\n=== Building municipality crosswalk ===\n")
-
-crosswalk <- load_municipality_crosswalk()
-message("  Crosswalk has ", nrow(crosswalk), " municipalities")
-
-message("\n=== Data download complete ===\n")
-message("Check ", data_raw, " for downloaded files.")
-message("If budget amendment data is missing, follow the manual instructions above.")
+message("\nAll data cached in: ", data_raw)
+message("To refresh, delete the .rds files and re-run this script.")

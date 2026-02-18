@@ -24,7 +24,7 @@ message("\n=== Computing HHI and effective candidates ===\n")
 mun_hhi <- votes |>
   # Only consider candidates with positive votes
   filter(votes > 0, vote_share > 0) |>
-  group_by(election_year, state, mun_code_tse) |>
+  group_by(election_year, state, id_municipio) |>
   summarise(
     hhi = compute_hhi(vote_share),
     n_candidates = n(),
@@ -51,7 +51,7 @@ message("\n=== Ranking elected legislators within municipalities ===\n")
 elected_votes <- votes |>
   filter(elected == TRUE, votes > 0) |>
   # Rank within each municipality-year by vote share (descending)
-  group_by(election_year, state, mun_code_tse) |>
+  group_by(election_year, state, id_municipio) |>
   mutate(
     rank_in_mun = rank(-vote_share, ties.method = "min")
   ) |>
@@ -71,8 +71,8 @@ message("\n=== Defining associated candidates ===\n")
 
 elected_votes <- elected_votes |>
   left_join(
-    mun_hhi |> select(election_year, state, mun_code_tse, n_effective),
-    by = c("election_year", "state", "mun_code_tse")
+    mun_hhi |> select(election_year, state, id_municipio, n_effective),
+    by = c("election_year", "state", "id_municipio")
   ) |>
   mutate(
     associated = as.integer(rank_in_mun < n_effective)
@@ -120,7 +120,7 @@ if (nrow(budget) > 0) {
   # Aggregate by legislator-municipality-term
   amendments_term <- budget |>
     filter(!is.na(election_year)) |>
-    group_by(election_year, legislator_name, mun_code_ibge) |>
+    group_by(election_year, legislator_name, id_municipio) |>
     summarise(
       total_amendment = sum(total_amendment_value, na.rm = TRUE),
       n_amendments_term = sum(n_amendments, na.rm = TRUE),
@@ -133,7 +133,7 @@ if (nrow(budget) > 0) {
   amendments_term <- tibble(
     election_year = integer(),
     legislator_name = character(),
-    mun_code_ibge = character(),
+    id_municipio = character(),
     total_amendment = numeric(),
     n_amendments_term = integer()
   )
@@ -153,8 +153,8 @@ if (nrow(amendments_term) > 0 && nrow(pop) > 0) {
     left_join(
       pop |>
         # Keep population for the relevant years
-        select(mun_code_ibge, year, population),
-      by = c("mun_code_ibge", "election_year" = "year")
+        select(id_municipio, year, population),
+      by = c("id_municipio", "election_year" = "year")
     ) |>
     mutate(
       amendments_pc = ifelse(
@@ -184,8 +184,8 @@ message("\n=== Building analysis panel ===\n")
 # Start with elected legislator-municipality pairs
 panel <- elected_votes |>
   select(
-    election_year, state, mun_code_tse, mun_name,
-    candidate_seq, candidate_number, candidate_name, party,
+    election_year, state, id_municipio,
+    id_candidato, candidate_number, candidate_name, party,
     votes, vote_share, total_votes_mun,
     rank_in_mun, n_effective, associated
   )
@@ -194,8 +194,8 @@ panel <- elected_votes |>
 # A legislator may or may not run in the next election
 next_election <- votes |>
   select(
-    election_year, mun_code_tse,
-    candidate_name, party,
+    election_year, id_municipio,
+    id_candidato,
     vote_share_next = vote_share,
     votes_next = votes
   )
@@ -212,8 +212,8 @@ panel <- panel |>
     next_election,
     by = c(
       "next_election_year" = "election_year",
-      "mun_code_tse",
-      "candidate_name"
+      "id_municipio",
+      "id_candidato"
     )
   )
 
@@ -246,18 +246,24 @@ if (nrow(amendments_term) > 0) {
   amendments_term <- amendments_term |>
     mutate(name_normalized = normalize_name(legislator_name))
 
-  # TODO: Need to convert mun_code_tse to mun_code_ibge for matching
-  # This requires the municipality crosswalk
-  # For now, we leave the merge as a placeholder
-  message("  NOTE: Budget amendment merge requires TSE-IBGE code crosswalk.")
-  message("  Complete this merge after verifying the crosswalk is correct.")
+  # Both datasets use standardized id_municipio from Base dos Dados — no crosswalk needed
+  panel <- panel |>
+    left_join(
+      amendments_term |>
+        select(election_year, id_municipio, name_normalized,
+               total_amendment, n_amendments_term, amendments_pc),
+      by = c("election_year", "id_municipio", "name_normalized")
+    )
+
+  message("  Merged budget amendments: ",
+          sum(!is.na(panel$amendments_pc)), " matched pairs")
 }
 
 # Add municipality-level controls
 panel <- panel |>
   left_join(
-    mun_hhi |> select(election_year, mun_code_tse, hhi, n_candidates),
-    by = c("election_year", "mun_code_tse")
+    mun_hhi |> select(election_year, id_municipio, hhi, n_candidates),
+    by = c("election_year", "id_municipio")
   )
 
 # =============================================================================
