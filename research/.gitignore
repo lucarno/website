@@ -1,0 +1,11 @@
+# Data files (too large for git)
+data/
+
+# R session files
+.Rhistory
+.RData
+.Rproj.user/
+
+# Output
+output/
+figures/
