@@ -6,6 +6,9 @@ data/
 .RData
 .Rproj.user/
 
+# Secrets / credentials (NEVER commit)
+.Renviron
+
 # Output
 output/
 figures/

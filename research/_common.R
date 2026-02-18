@@ -32,13 +32,21 @@ invisible(lapply(required_packages, library, character.only = TRUE))
 # --- Base dos Dados setup ----------------------------------------------------
 # You need a Google Cloud project (free) for BigQuery access.
 # Free tier: 1 TB of queries per month.
-# Set your billing project ID below or via environment variable.
+#
+# Store credentials in research/.Renviron (gitignored):
+#   BD_PROJECT_ID=your-project-id
+#   GOOGLE_API_KEY=your-api-key
+
+# Load .Renviron from research/ if it exists
+renviron_path <- file.path(here::here("research"), ".Renviron")
+if (file.exists(renviron_path)) {
+  readRenviron(renviron_path)
+}
 
 bd_project_id <- Sys.getenv("BD_PROJECT_ID", unset = "")
 if (bd_project_id == "") {
-  message("NOTE: Set your Google Cloud billing project ID for Base dos Dados.")
-  message("  Option 1: Sys.setenv(BD_PROJECT_ID = 'your-project-id')")
-  message("  Option 2: basedosdados::set_billing_id('your-project-id')")
+  message("NOTE: Set your Google Cloud billing project ID.")
+  message("  Create research/.Renviron with: BD_PROJECT_ID=your-project-id")
   message("  See: https://basedosdados.org/docs/access_data_bq")
 } else {
   basedosdados::set_billing_id(bd_project_id)
