@@ -3,6 +3,7 @@ project:
   output-dir: docs
 
 website:
+  google-analytics: "G-5VP2FJ1NX3"
   title: "Lucas M. Novaes"
   navbar:
     background: dark
