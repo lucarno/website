@@ -24,6 +24,21 @@ h2 {
   max-width: 220px;
 }
 
+/* Inline contact icon row on home page */
+.contact-icons {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1rem 0 1.5rem;
+  font-size: 1.6rem;
+}
+.contact-icons a {
+  color: #495057;
+  text-decoration: none;
+}
+.contact-icons a:hover {
+  color: #0d6efd;
+}
+
 /* Navbar tweaks */
 .navbar {
   font-size: 0.95rem;

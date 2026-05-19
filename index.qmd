@@ -4,22 +4,16 @@ about:
   template: trestles
   image: files/photo.png
   image-shape: rectangle
-  links:
-    - icon: envelope
-      text: Email
-      href: mailto:lucasmn2@insper.edu.br
-    - icon: google
-      text: Google Scholar
-      href: https://scholar.google.com/citations?hl=en&user=zVT_HkgAAAAJ
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com/lmnovaes
-    - icon: building
-      text: Insper
-      href: https://www.insper.edu.br
 ---
 
 Welcome! I am associate professor at [Insper Institute for Education and Research](https://www.insper.edu.br), São Paulo, Brazil, where I investigate political representation in the developing world.
+
+<div class="contact-icons">
+[<i class="bi bi-envelope" aria-label="Email"></i>](mailto:lucasmn2@insper.edu.br)
+[<i class="bi bi-google" aria-label="Google Scholar"></i>](https://scholar.google.com/citations?hl=en&user=zVT_HkgAAAAJ)
+[<i class="bi bi-twitter" aria-label="Twitter"></i>](https://twitter.com/lmnovaes)
+[<i class="bi bi-building" aria-label="Insper"></i>](https://www.insper.edu.br)
+</div>
 
 I am also an associate at the [Governance and Local Development Institute](https://gld.gu.se/), University of Gothenburg, and a former research fellow at the [Institute for Advanced Study in Toulouse](https://www.iast.fr/) (2016--2018).
 
