@@ -49,3 +49,27 @@ h2 {
   font-size: 0.85rem;
   color: #6c757d;
 }
+
+/* Mobile tweaks */
+@media (max-width: 576px) {
+  body {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .quarto-container.page-columns,
+  main.content {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  h2 {
+    margin-top: 1.5rem;
+    font-size: 1.35rem;
+  }
+  .content p strong:first-child {
+    margin-top: 0.5rem;
+  }
+  /* Collapse hard line breaks within citations so title and authors flow */
+  .content p br {
+    display: none;
+  }
+}
