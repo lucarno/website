@@ -3,7 +3,7 @@ title: "Lucas M. Novaes"
 about:
   template: trestles
   image: files/photo.png
-  image-shape: round
+  image-shape: rectangle
   links:
     - icon: envelope
       text: Email
