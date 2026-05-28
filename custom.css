@@ -50,6 +50,88 @@ h2 {
   color: #6c757d;
 }
 
+/* ---- Research / publication list ---- */
+.pub {
+  margin: 0 0 1.5rem;
+}
+.pub > p {
+  margin: 0.12rem 0;
+}
+
+/* Title */
+.pub-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: #212529;
+  text-decoration: none;
+}
+a.pub-title:hover {
+  color: #2780e3;
+  text-decoration: underline;
+}
+
+/* Venue / year / details line */
+.pub-meta {
+  font-size: 0.95rem;
+  color: #6c757d;
+}
+.pub-venue {
+  font-style: italic;
+  font-weight: 500;
+  color: #334155;
+}
+
+/* Coauthors */
+.pub-authors {
+  font-size: 0.95rem;
+  color: #6c757d;
+}
+
+/* Status badge (forthcoming, conditionally accepted, in preparation, ...) */
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #1c5fb8;
+  background: #e7f1ff;
+  border: 1px solid #cfe2ff;
+  border-radius: 999px;
+  padding: 0.05rem 0.55rem;
+  vertical-align: middle;
+}
+
+/* Resource link "pills" */
+a.pill {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #495057;
+  background: #f1f3f5;
+  border: 1px solid #e3e6ea;
+  border-radius: 6px;
+  padding: 0.08rem 0.55rem;
+  margin: 0.3rem 0.3rem 0 0;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+a.pill:hover {
+  background: #2780e3;
+  color: #fff;
+  border-color: #2780e3;
+}
+
+/* Award / media / book notes */
+.pub-note {
+  font-size: 0.88rem;
+  color: #6c757d;
+}
+.pub-award {
+  color: #8a6d1f;
+}
+
 /* Mobile tweaks */
 @media (max-width: 576px) {
   body {

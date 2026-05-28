@@ -2,66 +2,177 @@
 title: "Research"
 ---
 
+<!-- Entry template (copy to add a paper):
+::: {.pub}
+[Title]{.pub-title}                         <- plain title for unpublished work
+[Title](doi-url){.pub-title}                <- linked title for published work
+
+[[Journal Name]{.pub-venue} [Status]{.badge} · 2024 · 12(3), 1–20]{.pub-meta}
+
+[with [Coauthor](url) and [Coauthor](url)]{.pub-authors}
+
+[PDF](url){.pill} [Dataverse](url){.pill}
+
+[note line]{.pub-note}
+:::
+-->
+
 ## Working Papers and Work in Progress
 
-**The Price of Order: How Violent Crime Weakens Democracy**\
-(with [Anderson Frey](https://www.andersonfrey.com/)) — [[pdf](https://www.dropbox.com/scl/fi/5wz1h7qwfp79s80h6l2ey/Cangaco.pdf?rlkey=3fvexenmm0yd46ivq6n1dhzkl&dl=0)]
+::: {.pub}
+[The Price of Order: How Violent Crime Weakens Democracy]{.pub-title}
 
-**Electoral Results Affect Beliefs About the Past: Evidence from Chile** — *Conditionally Accepted*, **Journal of Public Economics**\
-(with [Nicolás Ajzenman](https://www.ajzenman.com/) and [Patrício Dominguez](https://sites.google.com/site/pdomingr/)) — [[pdf](https://www.dropbox.com/scl/fi/ptdwwew4a3alv51q22jen/2026_01_version.pdf?rlkey=83aa3vdtyg3wbte6jxmsy1yw8&dl=0)]
+[with [Anderson Frey](https://www.andersonfrey.com/)]{.pub-authors}
 
-**The Autocracy Bandwagon: Political Selection and Autocratic Consolidation**\
-(with [Guadalupe Tuñón](https://politics.princeton.edu/people/guadalupe-tunon)) — [email for wp]
+[PDF](https://www.dropbox.com/scl/fi/5wz1h7qwfp79s80h6l2ey/Cangaco.pdf?rlkey=3fvexenmm0yd46ivq6n1dhzkl&dl=0){.pill}
+:::
 
-**Political Outsiders**\
-(in preparation, with [Natalia Garbiras-Diaz](https://www.nataliagarbirasdiaz.com/))
+::: {.pub}
+[Electoral Results Affect Beliefs About the Past: Evidence from Chile]{.pub-title}
 
-**Ideology First: Physicians in Bolsonaro's Brazil**\
-(in preparation, with [Horacio Larreguy](https://sites.google.com/site/hlarreguy/) and [Letícia Nunes](https://www.leticianunes.com/))
+[[Journal of Public Economics]{.pub-venue} [Conditionally Accepted]{.badge}]{.pub-meta}
+
+[with [Nicolás Ajzenman](https://www.ajzenman.com/) and [Patrício Dominguez](https://sites.google.com/site/pdomingr/)]{.pub-authors}
+
+[PDF](https://www.dropbox.com/scl/fi/ptdwwew4a3alv51q22jen/2026_01_version.pdf?rlkey=83aa3vdtyg3wbte6jxmsy1yw8&dl=0){.pill}
+:::
+
+::: {.pub}
+[The Autocracy Bandwagon: Political Selection and Autocratic Consolidation]{.pub-title}
+
+[with [Guadalupe Tuñón](https://politics.princeton.edu/people/guadalupe-tunon)]{.pub-authors}
+
+[Email for working paper]{.pub-note}
+:::
+
+::: {.pub}
+[Political Outsiders]{.pub-title}
+
+[[In preparation]{.badge}]{.pub-meta}
+
+[with [Natalia Garbiras-Diaz](https://www.nataliagarbirasdiaz.com/)]{.pub-authors}
+:::
+
+::: {.pub}
+[Ideology First: Physicians in Bolsonaro's Brazil]{.pub-title}
+
+[[In preparation]{.badge}]{.pub-meta}
+
+[with [Horacio Larreguy](https://sites.google.com/site/hlarreguy/) and [Letícia Nunes](https://www.leticianunes.com/)]{.pub-authors}
+:::
 
 
 ## Peer-Reviewed Publications
 
-"[Special Interest Trade-Offs: Campaign Finance Reforms and Religious Influence in Politics in Brazil](https://www.journals.uchicago.edu/doi/10.1086/736804)"\
-(with [Melani Cammett](https://cmes.fas.harvard.edu/people/melani-cammett) and [Guadalupe Tuñón](https://politics.princeton.edu/people/guadalupe-tunon)) — *Journal of Politics*, forthcoming. [[pdf accepted manuscript](https://www.dropbox.com/scl/fi/7ywqbe4yng0dbu2svn8b5/cammett_novaes_tunon_JOP_2025.pdf?rlkey=0flojlpeg0ja81b4bl4cjwazb&dl=0)]
+::: {.pub}
+[Special Interest Trade-Offs: Campaign Finance Reforms and Religious Influence in Politics in Brazil](https://www.journals.uchicago.edu/doi/10.1086/736804){.pub-title}
 
-"[Bolsonaro's Botched Coup Attempt Exposed Political Fault Lines in the Brazilian Democracy](https://pensamientoeducativo.uc.cl/index.php/rcp/article/view/83138)"\
-(with [Diego Werneck Arguelhes](https://scholar.google.com.br/citations?user=h8QfURAAAAAJ&hl=en)) — *Revista de Ciencia Política*, 2024. [[pdf](https://www.dropbox.com/scl/fi/4zgzqgigqb592m6da3yx8/Novaes_Arguelhes_RCP_2024.pdf?rlkey=pm1urift3ngj1xiyfcks80tya&dl=0)]
+[[Journal of Politics]{.pub-venue} [Forthcoming]{.badge}]{.pub-meta}
 
-"[The Violence of Law-and-Order Politics: The Case of Law Enforcement Candidates in Brazil](https://www.cambridge.org/core/journals/american-political-science-review/article/violence-of-lawandorder-politics-the-case-of-law-enforcement-candidates-in-brazil/8B3119D4E66E61B1FC7168FD5231D97B)"\
-*American Political Science Review*, 2024, 118(1), 1–20 (lead article). [[pdf](https://www.dropbox.com/scl/fi/ky80j0169rxsk2h6epcqo/Novaes_APSR_2023.pdf?rlkey=pe92ysww33zii37z7s1qhklsd&dl=0)], [[dataverse](https://doi.org/10.7910/DVN/U9ZECG)]\
-🏆 Recipient of the 2024 Olavo Brasil Jr. Prize, Brazilian Political Science Association.\
-Media: [Blog Faces da Violência](https://facesdaviolencia.blogfolha.uol.com.br/2018/09/29/homicidios-mais-do-que-dobram-em-municipios-que-elegeram-policiais-como-vereadores-diz-estudo-de-instituto-de-pesquisas-em-tolouse-na-franca/), [Época](https://epoca.globo.com/politicos-de-farda-violencia-22940335), [Ponte](https://ponte.org/cidades-que-elegeram-bancadas-da-bala-viram-homicidios-dobrarem/), [Vice](https://www.vice.com/en/article/y3gd95/bolsonaro-has-inspired-more-police-to-run-for-office-in-brazil).
+[with [Melani Cammett](https://cmes.fas.harvard.edu/people/melani-cammett) and [Guadalupe Tuñón](https://politics.princeton.edu/people/guadalupe-tunon)]{.pub-authors}
 
-"[Media Manipulation in Young Democracies: Evidence from the 1989 Brazilian Presidential Election](https://journals.sagepub.com/doi/full/10.1177/00104140231169027)"\
-(with [Alexsandros Cavgias](https://sites.google.com/view/alexsandroscavgias/home?authuser=0), [Raphael Corbi](https://sites.google.com/site/raphaelcorbi/), and [Luis Meloni](https://www.luismeloni.com/)) — *Comparative Political Studies*, 2024, 67(2). [[pdf](https://www.dropbox.com/s/wkwv5046los72b7/cavgias-et-al-2023-media-manipulation-in-young-democracies-evidence-from-the-1989-brazilian-presidential-election.pdf?dl=0)], [[dataverse](https://doi.org/10.7910/DVN/DEIRCB)]
+[PDF (accepted manuscript)](https://www.dropbox.com/scl/fi/7ywqbe4yng0dbu2svn8b5/cammett_novaes_tunon_JOP_2025.pdf?rlkey=0flojlpeg0ja81b4bl4cjwazb&dl=0){.pill}
+:::
 
-"[Commodity Shocks and Incumbency Effects](https://www.cambridge.org/core/journals/british-journal-of-political-science/article/commodity-shocks-and-incumbency-effects/6C14B6B7AA39ACD052F7199BCE3B281F)"\
-(with [Luis Schiumerini](https://sites.google.com/site/leschiumerini/)) — *British Journal of Political Science*, 2022, 52(4), 1689–1708. [[pdf](https://www.dropbox.com/s/p3xvid032dlpalk/Novaes_schiumerini_BJPS_2021.pdf?dl=0)], [[dataverse](https://doi.org/10.7910/DVN/EV8CBE)]
+::: {.pub}
+[Bolsonaro's Botched Coup Attempt Exposed Political Fault Lines in the Brazilian Democracy](https://pensamientoeducativo.uc.cl/index.php/rcp/article/view/83138){.pub-title}
 
-"[Disloyal Brokers and Weak Parties](https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12331)"\
-*American Journal of Political Science*, 2018, 62(1), 84–98. [[pdf](https://www.dropbox.com/s/0ynoetsefzca2jz/Novaes_AJPS_2018.pdf?dl=0)], [[dataverse](https://doi.org/10.7910/DVN/BPON3K)]
+[[Revista de Ciencia Política]{.pub-venue} · 2024]{.pub-meta}
+
+[with [Diego Werneck Arguelhes](https://scholar.google.com.br/citations?user=h8QfURAAAAAJ&hl=en)]{.pub-authors}
+
+[PDF](https://www.dropbox.com/scl/fi/4zgzqgigqb592m6da3yx8/Novaes_Arguelhes_RCP_2024.pdf?rlkey=pm1urift3ngj1xiyfcks80tya&dl=0){.pill}
+:::
+
+::: {.pub}
+[The Violence of Law-and-Order Politics: The Case of Law Enforcement Candidates in Brazil](https://www.cambridge.org/core/journals/american-political-science-review/article/violence-of-lawandorder-politics-the-case-of-law-enforcement-candidates-in-brazil/8B3119D4E66E61B1FC7168FD5231D97B){.pub-title}
+
+[[American Political Science Review]{.pub-venue} [Lead article]{.badge} · 2024 · 118(1), 1–20]{.pub-meta}
+
+[PDF](https://www.dropbox.com/scl/fi/ky80j0169rxsk2h6epcqo/Novaes_APSR_2023.pdf?rlkey=pe92ysww33zii37z7s1qhklsd&dl=0){.pill} [Dataverse](https://doi.org/10.7910/DVN/U9ZECG){.pill}
+
+[🏆 Recipient of the 2024 Olavo Brasil Jr. Prize, Brazilian Political Science Association]{.pub-note .pub-award}
+
+[Media: [Folha](https://facesdaviolencia.blogfolha.uol.com.br/2018/09/29/homicidios-mais-do-que-dobram-em-municipios-que-elegeram-policiais-como-vereadores-diz-estudo-de-instituto-de-pesquisas-em-tolouse-na-franca/) · [Época](https://epoca.globo.com/politicos-de-farda-violencia-22940335) · [Ponte](https://ponte.org/cidades-que-elegeram-bancadas-da-bala-viram-homicidios-dobrarem/) · [Vice](https://www.vice.com/en/article/y3gd95/bolsonaro-has-inspired-more-police-to-run-for-office-in-brazil)]{.pub-note}
+:::
+
+::: {.pub}
+[Media Manipulation in Young Democracies: Evidence from the 1989 Brazilian Presidential Election](https://journals.sagepub.com/doi/full/10.1177/00104140231169027){.pub-title}
+
+[[Comparative Political Studies]{.pub-venue} · 2024 · 67(2)]{.pub-meta}
+
+[with [Alexsandros Cavgias](https://sites.google.com/view/alexsandroscavgias/home?authuser=0), [Raphael Corbi](https://sites.google.com/site/raphaelcorbi/), and [Luis Meloni](https://www.luismeloni.com/)]{.pub-authors}
+
+[PDF](https://www.dropbox.com/s/wkwv5046los72b7/cavgias-et-al-2023-media-manipulation-in-young-democracies-evidence-from-the-1989-brazilian-presidential-election.pdf?dl=0){.pill} [Dataverse](https://doi.org/10.7910/DVN/DEIRCB){.pill}
+:::
+
+::: {.pub}
+[Commodity Shocks and Incumbency Effects](https://www.cambridge.org/core/journals/british-journal-of-political-science/article/commodity-shocks-and-incumbency-effects/6C14B6B7AA39ACD052F7199BCE3B281F){.pub-title}
+
+[[British Journal of Political Science]{.pub-venue} · 2022 · 52(4), 1689–1708]{.pub-meta}
+
+[with [Luis Schiumerini](https://sites.google.com/site/leschiumerini/)]{.pub-authors}
+
+[PDF](https://www.dropbox.com/s/p3xvid032dlpalk/Novaes_schiumerini_BJPS_2021.pdf?dl=0){.pill} [Dataverse](https://doi.org/10.7910/DVN/EV8CBE){.pill}
+:::
+
+::: {.pub}
+[Disloyal Brokers and Weak Parties](https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12331){.pub-title}
+
+[[American Journal of Political Science]{.pub-venue} · 2018 · 62(1), 84–98]{.pub-meta}
+
+[PDF](https://www.dropbox.com/s/0ynoetsefzca2jz/Novaes_AJPS_2018.pdf?dl=0){.pill} [Dataverse](https://doi.org/10.7910/DVN/BPON3K){.pill}
+:::
 
 
 ## Chapters in Edited Volumes
 
-"[The New Left in Broker-Mediated Party Systems](https://www.cambridge.org/core/books/inclusionary-turn-in-latin-american-democracies/9E2C271C6AFB4CBE52BC302082C60230)"\
-(with [Thad Dunning](http://www.thaddunning.com/)) — in Kapiszewski, Levitsky and Yashar (eds.) *The Inclusionary Turn in Latin American Democracies*, Cambridge University Press, 2021. [[pdf](https://www.dropbox.com/s/85cltbovc2ko0au/Dunning_Novaes_CUP_2021.pdf?dl=0)]
+::: {.pub}
+[The New Left in Broker-Mediated Party Systems](https://www.cambridge.org/core/books/inclusionary-turn-in-latin-american-democracies/9E2C271C6AFB4CBE52BC302082C60230){.pub-title}
+
+[in Kapiszewski, Levitsky and Yashar (eds.) [The Inclusionary Turn in Latin American Democracies]{.pub-venue}, Cambridge University Press, 2021]{.pub-meta}
+
+[with [Thad Dunning](http://www.thaddunning.com/)]{.pub-authors}
+
+[PDF](https://www.dropbox.com/s/85cltbovc2ko0au/Dunning_Novaes_CUP_2021.pdf?dl=0){.pill}
+:::
 
 
 ## Peer-Reviewed Publications, in Portuguese
 
-"[The Effect of Re-election on Health Expenditures: An Analysis of the Reputation-Building Model](http://www.scielo.br/scielo.php?pid=S0101-31572010000100009&script=sci_arttext&tlng=pt)"\
-(with [Enlinson Mattos](https://sites.google.com/site/enlinsonmattos/)) — *Brazilian Review of Political Economy* (Revista de Economia Política), 2010, 30(1), 140–158. [[pdf](https://www.dropbox.com/s/wckuoncgb980m85/Novaes_mattos_REP_2010.pdf?dl=0)]
+::: {.pub}
+[The Effect of Re-election on Health Expenditures: An Analysis of the Reputation-Building Model](http://www.scielo.br/scielo.php?pid=S0101-31572010000100009&script=sci_arttext&tlng=pt){.pub-title}
 
-"[Scale Economies in the Supply of Health Services: A Study of São Paulo Municipalities](http://www.anpec.org.br/revista/vol10/vol10n2p357_386.pdf)"\
-(with Paulo Arvate, Enlinson Mattos, Veronica Orellano, and Fabiana Rocha) — *Revista ANPEC*, 2009, 10(2), 357–386.
+[[Brazilian Review of Political Economy (Revista de Economia Política)]{.pub-venue} · 2010 · 30(1), 140–158]{.pub-meta}
+
+[with [Enlinson Mattos](https://sites.google.com/site/enlinsonmattos/)]{.pub-authors}
+
+[PDF](https://www.dropbox.com/s/wckuoncgb980m85/Novaes_mattos_REP_2010.pdf?dl=0){.pill}
+:::
+
+::: {.pub}
+[Scale Economies in the Supply of Health Services: A Study of São Paulo Municipalities](http://www.anpec.org.br/revista/vol10/vol10n2p357_386.pdf){.pub-title}
+
+[[Revista ANPEC]{.pub-venue} · 2009 · 10(2), 357–386]{.pub-meta}
+
+[with Paulo Arvate, Enlinson Mattos, Veronica Orellano, and Fabiana Rocha]{.pub-authors}
+:::
 
 
 ## Non Peer-Reviewed
 
-[Comunicando Incertezas](https://www.insper.edu.br/wp-content/uploads/2021/02/legadodeumapandemia-1.pdf) (with Pedro Burgos), 2021.\
-In Machado, Laura Mueller (org.) *Legado de uma Pandemia*. Autografia.
+::: {.pub}
+[Comunicando Incertezas](https://www.insper.edu.br/wp-content/uploads/2021/02/legadodeumapandemia-1.pdf){.pub-title}
 
-[Mexico Centennial: Limited Independence, Limited Democracy](http://vcro-vm-i004-dev07.berkeley.edu/research/mexicos-centennials-limited-independence-limited-democracy) (with Sinaia Urrusti-Frenk), 2010.\
-*Berkeley Review of Latin American Studies*.
+[in Machado, Laura Mueller (org.) [Legado de uma Pandemia]{.pub-venue}, Autografia, 2021]{.pub-meta}
+
+[with Pedro Burgos]{.pub-authors}
+:::
+
+::: {.pub}
+[Mexico Centennial: Limited Independence, Limited Democracy](http://vcro-vm-i004-dev07.berkeley.edu/research/mexicos-centennials-limited-independence-limited-democracy){.pub-title}
+
+[[Berkeley Review of Latin American Studies]{.pub-venue} · 2010]{.pub-meta}
+
+[with Sinaia Urrusti-Frenk]{.pub-authors}
+:::
