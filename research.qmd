@@ -87,7 +87,7 @@ title: "Research"
 ::: {.pub}
 [The Violence of Law-and-Order Politics: The Case of Law Enforcement Candidates in Brazil](https://www.cambridge.org/core/journals/american-political-science-review/article/violence-of-lawandorder-politics-the-case-of-law-enforcement-candidates-in-brazil/8B3119D4E66E61B1FC7168FD5231D97B){.pub-title}
 
-[[American Political Science Review]{.pub-venue} [Lead article]{.badge} · 2024 · 118(1), 1–20]{.pub-meta}
+[[American Political Science Review]{.pub-venue} · 2024 · 118(1), 1–20]{.pub-meta}
 
 [PDF](https://www.dropbox.com/scl/fi/ky80j0169rxsk2h6epcqo/Novaes_APSR_2023.pdf?rlkey=pe92ysww33zii37z7s1qhklsd&dl=0){.pill} [Dataverse](https://doi.org/10.7910/DVN/U9ZECG){.pill}
 
