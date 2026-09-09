@@ -28,16 +28,6 @@ title: "Research"
 :::
 
 ::: {.pub}
-[Electoral Results Affect Beliefs About the Past: Evidence from Chile]{.pub-title}
-
-[[Journal of Public Economics]{.pub-venue} [Conditionally Accepted]{.badge}]{.pub-meta}
-
-[with [Nicolás Ajzenman](https://www.ajzenman.com/) and [Patrício Dominguez](https://sites.google.com/site/pdomingr/)]{.pub-authors}
-
-[PDF](https://www.dropbox.com/scl/fi/ptdwwew4a3alv51q22jen/2026_01_version.pdf?rlkey=83aa3vdtyg3wbte6jxmsy1yw8&dl=0){.pill}
-:::
-
-::: {.pub}
 [The Autocracy Bandwagon: Political Selection and Autocratic Consolidation]{.pub-title}
 
 [with [Guadalupe Tuñón](https://politics.princeton.edu/people/guadalupe-tunon)]{.pub-authors}
@@ -63,6 +53,16 @@ title: "Research"
 
 
 ## Peer-Reviewed Publications
+
+::: {.pub}
+[Electoral Results Affect Beliefs About the Past: Evidence from Chile](https://doi.org/10.1016/j.jpubeco.2026.105761){.pub-title}
+
+[[Journal of Public Economics]{.pub-venue} · 2026 · 262, 105761]{.pub-meta}
+
+[with [Nicolás Ajzenman](https://www.ajzenman.com/) and [Patrício Dominguez](https://sites.google.com/site/pdomingr/)]{.pub-authors}
+
+[PDF](https://www.dropbox.com/scl/fi/ptdwwew4a3alv51q22jen/2026_01_version.pdf?rlkey=83aa3vdtyg3wbte6jxmsy1yw8&dl=0){.pill}
+:::
 
 ::: {.pub}
 [Special Interest Trade-Offs: Campaign Finance Reforms and Religious Influence in Politics in Brazil](https://www.journals.uchicago.edu/doi/10.1086/736804){.pub-title}
