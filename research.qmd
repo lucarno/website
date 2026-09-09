@@ -25,6 +25,8 @@ title: "Research"
 [with [Anderson Frey](https://www.andersonfrey.com/)]{.pub-authors}
 
 [PDF](https://www.dropbox.com/scl/fi/5wz1h7qwfp79s80h6l2ey/Cangaco.pdf?rlkey=3fvexenmm0yd46ivq6n1dhzkl&dl=0){.pill}
+
+[Media: [Folha](https://www1.folha.uol.com.br/opiniao/2025/11/inseguranca-publica-e-o-veneno-da-democracia.shtml)]{.pub-note}
 :::
 
 ::: {.pub}
@@ -67,11 +69,13 @@ title: "Research"
 ::: {.pub}
 [Special Interest Trade-Offs: Campaign Finance Reforms and Religious Influence in Politics in Brazil](https://www.journals.uchicago.edu/doi/10.1086/736804){.pub-title}
 
-[[Journal of Politics]{.pub-venue} [Forthcoming]{.badge}]{.pub-meta}
+[[Journal of Politics]{.pub-venue} · 2026]{.pub-meta}
 
 [with [Melani Cammett](https://cmes.fas.harvard.edu/people/melani-cammett) and [Guadalupe Tuñón](https://politics.princeton.edu/people/guadalupe-tunon)]{.pub-authors}
 
 [PDF (accepted manuscript)](https://www.dropbox.com/scl/fi/7ywqbe4yng0dbu2svn8b5/cammett_novaes_tunon_JOP_2025.pdf?rlkey=0flojlpeg0ja81b4bl4cjwazb&dl=0){.pill}
+
+[Media: [DW](https://www.dw.com/pt-br/como-reforma-eleitoral-beneficiou-sigla-ligada-%C3%A0-igreja-universal/a-78550461)]{.pub-note}
 :::
 
 ::: {.pub}
