@@ -6,7 +6,7 @@ about:
   image-shape: rectangle
 ---
 
-Welcome! I am associate professor at [Insper Institute for Education and Research](https://www.insper.edu.br), São Paulo, Brazil, where I investigate political representation in the developing world.
+I am an associate professor at [Insper Institute for Education and Research](https://www.insper.edu.br) in São Paulo, Brazil, where I currently serve as Dean of Research and Graduate Studies. My research examines political representation, political parties, and democratic accountability in developing countries, with a particular focus on Brazil.
 
 <div class="contact-icons">
 [<i class="bi bi-envelope" aria-label="Email"></i>](mailto:lucasmn2@insper.edu.br)
@@ -17,7 +17,7 @@ Welcome! I am associate professor at [Insper Institute for Education and Researc
 
 I am also an associate at the [Governance and Local Development Institute](https://gld.gu.se/), University of Gothenburg, and a former research fellow at the [Institute for Advanced Study in Toulouse](https://www.iast.fr/) (2016--2018).
 
-My work has been published in the *American Political Science Review*, *American Journal of Political Science*, and the *Journal of Politics*, among other outlets.
+My work has been published in the *American Political Science Review*, *American Journal of Political Science*, *Journal of Politics*, and *Journal of Public Economics*, among other outlets.
 
 I received my Ph.D. in Political Science from the University of California, Berkeley, in 2015.
 
